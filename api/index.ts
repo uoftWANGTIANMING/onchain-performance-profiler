@@ -84,7 +84,11 @@ app.get('/api/metrics', cacheMiddleware, async (req, res) => {
                   console.error(`Solana getSlot failed:`, err.message);
                   throw err;
                 });
-                const slotsToFetch = [currentSlot, currentSlot - 1, currentSlot - 2, currentSlot - 3];
+                const slotCount = 15;
+                const slotsToFetch: number[] = [];
+                for (let i = 0; i < slotCount; i++) {
+                  slotsToFetch.push(currentSlot - i);
+                }
                 
                 const slotPromises = slotsToFetch.map(slot => 
                   solanaCollector.getBlockByNumber(slot).catch((err: any) => {
@@ -117,27 +121,36 @@ app.get('/api/metrics', cacheMiddleware, async (req, res) => {
                 
                 if (chainCollector.getBlockByNumber) {
                   const blockCounts: Record<string, number> = {
-                    ethereum: 3,
-                    arbitrum: 3,
-                    base: 3
+                    ethereum: 10,
+                    arbitrum: 30,
+                    base: 20
                   };
-                  const count = blockCounts[chain] || 3;
+                  const count = blockCounts[chain] || 10;
                   let currentBlock = blockData.blockNumber;
                   
-                  const promises: Promise<any>[] = [];
-                  for (let i = 1; i <= count; i++) {
-                    const targetBlock = currentBlock - i;
-                    if (targetBlock >= 0) {
-                      promises.push(
-                        chainCollector.getBlockByNumber(targetBlock).catch((err: any) => {
-                          console.error(`${chain} block ${targetBlock} failed:`, err.message || err);
-                          return null;
-                        })
-                      );
-                    }
-                  }
+                  const batchSize = 5;
+                  const results: any[] = [];
                   
-                  const results = await Promise.all(promises);
+                  for (let batch = 0; batch < Math.ceil(count / batchSize); batch++) {
+                    const batchPromises: Promise<any>[] = [];
+                    const start = batch * batchSize + 1;
+                    const end = Math.min(start + batchSize, count + 1);
+                    
+                    for (let i = start; i < end; i++) {
+                      const targetBlock = currentBlock - i;
+                      if (targetBlock >= 0) {
+                        batchPromises.push(
+                          chainCollector.getBlockByNumber(targetBlock).catch((err: any) => {
+                            console.error(`${chain} block ${targetBlock} failed:`, err.message || err);
+                            return null;
+                          })
+                        );
+                      }
+                    }
+                    
+                    const batchResults = await Promise.all(batchPromises);
+                    results.push(...batchResults);
+                  }
                   let successCount = 1;
                   for (const result of results.reverse()) {
                     if (result) {
