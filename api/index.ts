@@ -54,75 +54,7 @@ app.get('/api/health', async (req, res) => {
 app.get('/api/metrics', cacheMiddleware, async (req, res) => {
   try {
     const startTime = Date.now();
-    
-    const chains = Object.keys(CHAINS);
-    const realtimeMetrics = await Promise.allSettled(
-      chains.map(async (chain) => {
-        try {
-          const chainCollector = collector.collectors.get(chain);
-          if (!chainCollector) {
-            throw new Error(`Collector not found for ${chain}`);
-          }
-          
-          const blocks: any[] = [];
-          
-          if (chain === 'solana') {
-            const solanaCollector = chainCollector as any;
-            const currentSlot = await solanaCollector.connection.getSlot();
-            const slotsToFetch = [currentSlot, currentSlot - 1, currentSlot - 2];
-            
-            const slotResults = await Promise.allSettled(
-              slotsToFetch.map(slot => solanaCollector.getBlockByNumber(slot))
-            );
-            
-            for (const result of slotResults) {
-              if (result.status === 'fulfilled' && result.value && result.value.transactionCount !== undefined) {
-                blocks.push(result.value);
-              }
-            }
-          } else {
-            const blockData = await collector.collect(chain);
-            blocks.push(blockData);
-            
-            if (chainCollector.getBlockByNumber) {
-              const prevBlock = await chainCollector.getBlockByNumber(blockData.blockNumber - 1).catch(() => null);
-              if (prevBlock) {
-                blocks.unshift(prevBlock);
-              }
-            }
-          }
-          
-          if (blocks.length >= 2) {
-            return {
-              chain,
-              timestamp: Date.now(),
-              tps: processor.calculateTPS(blocks, chain),
-              blockTime: processor.calculateBlockTime(blocks),
-              confirmationDelay: processor.calculateConfirmationDelay(blocks)
-            };
-          }
-          
-          throw new Error(`Insufficient blocks: ${blocks.length}`);
-        } catch (error: any) {
-          console.error(`Error collecting ${chain}:`, error.message || error);
-          throw error;
-        }
-      })
-    );
-    
-    const metrics = realtimeMetrics.map((result, index) => {
-      if (result.status === 'fulfilled') {
-        return result.value;
-      }
-      return {
-        chain: chains[index],
-        timestamp: Date.now(),
-        tps: 0,
-        blockTime: 0,
-        confirmationDelay: 0
-      };
-    });
-    
+    const metrics = await processor.processAllChains();
     const responseTime = Date.now() - startTime;
 
     res.json({

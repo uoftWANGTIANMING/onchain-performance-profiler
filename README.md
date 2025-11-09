@@ -62,23 +62,18 @@ src/
 
 ## Metrics Definition
 
-- **TPS**: Transactions per second, calculated from recent blocks (Ethereum: 10 blocks, Arbitrum: 30 blocks, Base: 20 blocks, Solana: 15 slots)
+- **TPS**: Transactions per second, calculated from last 100 blocks
 - **Block Time**: Average time between blocks (seconds)
 - **Confirmation Delay**: Average time interval between blocks (seconds)
 
-## Real-time Data Collection
+## How It Works
 
-The system collects data in real-time on each API request:
-- Data refreshes every 5 seconds on the dashboard
-- No caching to ensure fresh data
-- Automatic retry and error handling for RPC requests
+- **Collector**: Continuously collects block data from all chains every 10 seconds and saves to `data/` directory
+- **Processor**: Reads block data from files and calculates metrics
+- **API**: Serves calculated metrics from processor
+- **Dashboard**: Displays metrics with charts, refreshes every 10 seconds
 
-## Deploy to Vercel
+## Local Development
 
-Quick steps:
-1. Set environment variables in Vercel dashboard (optional, defaults are provided)
-2. Deploy via `vercel` CLI or GitHub integration
-3. API routes are automatically configured as serverless functions
-
-The system uses real-time data collection in serverless environment, no persistent storage required.
+The system uses local file system storage (`data/` directory) for block data. Make sure the collector is running to populate data.
 
