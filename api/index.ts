@@ -118,14 +118,14 @@ app.get('/api/metrics', cacheMiddleware, async (req, res) => {
                 if (chainCollector.getBlockByNumber) {
                   const blockCounts: Record<string, number> = {
                     ethereum: 3,
-                    arbitrum: 5,
+                    arbitrum: 3,
                     base: 3
                   };
                   const count = blockCounts[chain] || 3;
                   let currentBlock = blockData.blockNumber;
                   
                   const promises: Promise<any>[] = [];
-                  for (let i = 1; i <= count && i <= 3; i++) {
+                  for (let i = 1; i <= count; i++) {
                     const targetBlock = currentBlock - i;
                     if (targetBlock >= 0) {
                       promises.push(
@@ -162,7 +162,7 @@ app.get('/api/metrics', cacheMiddleware, async (req, res) => {
               const result = {
                 chain,
                 timestamp: Date.now(),
-                tps: processor.calculateTPS(blocks),
+                tps: processor.calculateTPS(blocks, chain),
                 blockTime: processor.calculateBlockTime(blocks),
                 confirmationDelay: processor.calculateConfirmationDelay(blocks)
               };

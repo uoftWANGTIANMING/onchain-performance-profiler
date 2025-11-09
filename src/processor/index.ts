@@ -24,15 +24,19 @@ export class Processor {
     }
   }
 
-  public calculateTPS(blocks: BlockData[]): number {
+  public calculateTPS(blocks: BlockData[], chain?: string): number {
     if (blocks.length < 2) return 0;
 
     const sorted = blocks.sort((a, b) => a.timestamp - b.timestamp);
     const first = sorted[0];
     const last = sorted[sorted.length - 1];
-    const timeDiff = last.timestamp - first.timestamp;
+    let timeDiff = last.timestamp - first.timestamp;
     
     if (timeDiff <= 0) return 0;
+    
+    if (chain === 'solana' && timeDiff < 2) {
+      timeDiff = 2;
+    }
     
     const totalTxs = sorted.reduce((sum, b) => sum + b.transactionCount, 0);
     const tps = totalTxs / timeDiff;
@@ -115,7 +119,7 @@ export class Processor {
     const result = {
       chain,
       timestamp: Date.now(),
-      tps: this.calculateTPS(recentBlocks),
+      tps: this.calculateTPS(recentBlocks, chain),
       blockTime: this.calculateBlockTime(recentBlocks),
       confirmationDelay: this.calculateConfirmationDelay(recentBlocks)
     };
