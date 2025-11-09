@@ -8,7 +8,7 @@
     "dev:collector": "tsx watch src/collector/index.ts",
     "dev:api": "tsx watch src/api/index.ts",
     "dev:dashboard": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
