@@ -62,18 +62,23 @@ src/
 
 ## Metrics Definition
 
-- **TPS**: Transactions per second, calculated from last 100 blocks
+- **TPS**: Transactions per second, calculated from recent blocks (Ethereum: 10 blocks, Arbitrum: 30 blocks, Base: 20 blocks, Solana: 15 slots)
 - **Block Time**: Average time between blocks (seconds)
 - **Confirmation Delay**: Average time interval between blocks (seconds)
 
+## Real-time Data Collection
+
+The system collects data in real-time on each API request:
+- Data refreshes every 5 seconds on the dashboard
+- No caching to ensure fresh data
+- Automatic retry and error handling for RPC requests
+
 ## Deploy to Vercel
 
-See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions.
-
 Quick steps:
-1. Set environment variables in Vercel dashboard
+1. Set environment variables in Vercel dashboard (optional, defaults are provided)
 2. Deploy via `vercel` CLI or GitHub integration
 3. API routes are automatically configured as serverless functions
 
-**Note**: For production, consider using Supabase or Vercel KV for persistent data storage instead of local filesystem.
+The system uses real-time data collection in serverless environment, no persistent storage required.
 
