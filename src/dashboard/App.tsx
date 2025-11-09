@@ -54,7 +54,12 @@ function App() {
           if (!newHistory[m.chain]) {
             newHistory[m.chain] = [];
           }
-          newHistory[m.chain].push(m);
+          const existingIndex = newHistory[m.chain].findIndex(item => item.timestamp === m.timestamp);
+          if (existingIndex >= 0) {
+            newHistory[m.chain][existingIndex] = m;
+          } else {
+            newHistory[m.chain].push(m);
+          }
           if (newHistory[m.chain].length > 50) {
             newHistory[m.chain] = newHistory[m.chain].slice(-50);
           }

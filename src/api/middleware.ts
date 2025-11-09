@@ -95,7 +95,18 @@ export function cacheMiddleware(req: Request, res: Response, next: NextFunction)
 
   if (cached) {
     res.set(cached.headers);
-    return res.json(cached.data);
+    const cachedData = JSON.parse(JSON.stringify(cached.data));
+    if (cachedData.data && Array.isArray(cachedData.data)) {
+      cachedData.data.forEach((item: any) => {
+        if (item.timestamp) {
+          item.timestamp = Date.now();
+        }
+      });
+    }
+    if (cachedData.meta && cachedData.meta.timestamp) {
+      cachedData.meta.timestamp = new Date().toISOString();
+    }
+    return res.json(cachedData);
   }
 
   const originalJson = res.json.bind(res);
