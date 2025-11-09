@@ -265,7 +265,7 @@ function App() {
             opacity: refreshing ? 0.6 : 1
           }}
           onClick={() => fetchMetrics(true)}
-          disabled={refreshing}
+          disabled={refreshing || isProduction}
         >
           {refreshing ? (
             <>

@@ -5,4 +5,5 @@ metrics-history/
 .env
 *.log
 .DS_Store
+public/metrics-history.json
 
