@@ -28,29 +28,16 @@ export class Processor {
     if (blocks.length < 2) return 0;
 
     const sorted = blocks.sort((a, b) => a.timestamp - b.timestamp);
-    const now = Date.now() / 1000;
-    const windowSeconds = 60;
-    const cutoffTime = now - windowSeconds;
-
-    const recentBlocks = sorted.filter(b => b.timestamp >= cutoffTime);
-    
-    if (recentBlocks.length < 2) {
-      const first = sorted[0];
-      const last = sorted[sorted.length - 1];
-      const timeDiff = last.timestamp - first.timestamp;
-      if (timeDiff === 0) return 0;
-      const totalTxs = sorted.reduce((sum, b) => sum + b.transactionCount, 0);
-      return totalTxs / timeDiff;
-    }
-
-    const first = recentBlocks[0];
-    const last = recentBlocks[recentBlocks.length - 1];
+    const first = sorted[0];
+    const last = sorted[sorted.length - 1];
     const timeDiff = last.timestamp - first.timestamp;
     
-    if (timeDiff === 0) return 0;
-
-    const totalTxs = recentBlocks.reduce((sum, b) => sum + b.transactionCount, 0);
-    return totalTxs / timeDiff;
+    if (timeDiff <= 0) return 0;
+    
+    const totalTxs = sorted.reduce((sum, b) => sum + b.transactionCount, 0);
+    const tps = totalTxs / timeDiff;
+    
+    return Math.max(0, tps);
   }
 
   public calculateBlockTime(blocks: BlockData[]): number {

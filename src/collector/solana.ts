@@ -19,11 +19,29 @@ export class SolanaCollector {
       return withTimeout(
         (async () => {
           const slot = await this.connection.getSlot();
-          const block = await this.connection.getBlock(slot, {
-            maxSupportedTransactionVersion: 0
+          let block = await this.connection.getBlock(slot, {
+            maxSupportedTransactionVersion: 0,
+            commitment: 'confirmed'
           });
           
           if (!block) {
+            const earlierSlot = slot - 1;
+            block = await this.connection.getBlock(earlierSlot, {
+              maxSupportedTransactionVersion: 0,
+              commitment: 'confirmed'
+            });
+          }
+          
+          if (!block) {
+            const blockTime = await this.connection.getBlockTime(slot).catch(() => null);
+            if (blockTime) {
+              return {
+                chain: '',
+                blockNumber: slot,
+                timestamp: blockTime,
+                transactionCount: 0
+              };
+            }
             throw new Error('Failed to fetch block');
           }
 
@@ -44,10 +62,20 @@ export class SolanaCollector {
       return withTimeout(
         (async () => {
           const block = await this.connection.getBlock(slot, {
-            maxSupportedTransactionVersion: 0
+            maxSupportedTransactionVersion: 0,
+            commitment: 'confirmed'
           });
           
           if (!block) {
+            const blockTime = await this.connection.getBlockTime(slot).catch(() => null);
+            if (blockTime) {
+              return {
+                chain: '',
+                blockNumber: slot,
+                timestamp: blockTime,
+                transactionCount: 0
+              };
+            }
             throw new Error('Failed to fetch block');
           }
 
@@ -61,6 +89,19 @@ export class SolanaCollector {
         this.timeoutMs
       );
     }, this.maxRetries);
+  }
+  
+  async getRecentSlots(count: number): Promise<number[]> {
+    try {
+      const currentSlot = await this.connection.getSlot();
+      const slots: number[] = [];
+      for (let i = 0; i < count; i++) {
+        slots.push(currentSlot - i);
+      }
+      return slots;
+    } catch {
+      return [];
+    }
   }
 
   async healthCheck(): Promise<boolean> {
