@@ -56,149 +56,73 @@ app.get('/api/metrics', cacheMiddleware, async (req, res) => {
     const startTime = Date.now();
     
     const chains = Object.keys(CHAINS);
-    const realtimeMetrics = await Promise.all(
-        chains.map(async (chain) => {
-          try {
-            const chainCollector = collector.collectors.get(chain);
-            if (!chainCollector) {
-              console.error(`Collector not found for ${chain}`);
-              return {
-                chain,
-                timestamp: Date.now(),
-                tps: 0,
-                blockTime: 0,
-                confirmationDelay: 0
-              };
-            }
-            
-            const blocks: any[] = [];
-            
-            if (chain === 'solana') {
-              try {
-                const solanaCollector = chainCollector as any;
-                const currentSlot = await solanaCollector.connection.getSlot().catch((err: any) => {
-                  console.error(`Solana getSlot failed:`, err.message);
-                  throw err;
-                });
-                const slotCount = 15;
-                const slotsToFetch: number[] = [];
-                for (let i = 0; i < slotCount; i++) {
-                  slotsToFetch.push(currentSlot - i);
-                }
-                
-                const slotPromises = slotsToFetch.map(slot => 
-                  solanaCollector.getBlockByNumber(slot).catch((err: any) => {
-                    console.error(`Solana slot ${slot} failed:`, err.message || err);
-                    return null;
-                  })
-                );
-                
-                const slotResults = await Promise.all(slotPromises);
-                let successCount = 0;
-                for (const result of slotResults) {
-                  if (result && result.transactionCount !== undefined) {
-                    blocks.push(result);
-                    successCount++;
-                  }
-                }
-                
-                if (blocks.length < 2) {
-                  console.error(`Solana: Only got ${blocks.length}/${slotsToFetch.length} blocks. Current slot: ${currentSlot}`);
-                } else {
-                  console.log(`Solana: Successfully fetched ${successCount}/${slotsToFetch.length} blocks`);
-                }
-              } catch (error: any) {
-                console.error(`Solana collection error:`, error.message || error, error.stack);
-              }
-            } else {
-              try {
-                const blockData = await collector.collect(chain);
-                blocks.push(blockData);
-                
-                if (chainCollector.getBlockByNumber) {
-                  const blockCounts: Record<string, number> = {
-                    ethereum: 10,
-                    arbitrum: 30,
-                    base: 20
-                  };
-                  const count = blockCounts[chain] || 10;
-                  let currentBlock = blockData.blockNumber;
-                  
-                  const batchSize = 5;
-                  const results: any[] = [];
-                  
-                  for (let batch = 0; batch < Math.ceil(count / batchSize); batch++) {
-                    const batchPromises: Promise<any>[] = [];
-                    const start = batch * batchSize + 1;
-                    const end = Math.min(start + batchSize, count + 1);
-                    
-                    for (let i = start; i < end; i++) {
-                      const targetBlock = currentBlock - i;
-                      if (targetBlock >= 0) {
-                        batchPromises.push(
-                          chainCollector.getBlockByNumber(targetBlock).catch((err: any) => {
-                            console.error(`${chain} block ${targetBlock} failed:`, err.message || err);
-                            return null;
-                          })
-                        );
-                      }
-                    }
-                    
-                    const batchResults = await Promise.all(batchPromises);
-                    results.push(...batchResults);
-                  }
-                  let successCount = 1;
-                  for (const result of results.reverse()) {
-                    if (result) {
-                      blocks.unshift(result);
-                      successCount++;
-                    }
-                  }
-                  
-                  if (blocks.length < 2) {
-                    console.error(`${chain}: Only got ${blocks.length} blocks (expected at least 2). Latest block: ${currentBlock}`);
-                  } else {
-                    console.log(`${chain}: Successfully fetched ${successCount} blocks`);
-                  }
-                }
-              } catch (error: any) {
-                console.error(`${chain} collection error:`, error.message || error, error.stack);
-                throw error;
-              }
-            }
-            
-            if (blocks.length >= 2) {
-              const result = {
-                chain,
-                timestamp: Date.now(),
-                tps: processor.calculateTPS(blocks, chain),
-                blockTime: processor.calculateBlockTime(blocks),
-                confirmationDelay: processor.calculateConfirmationDelay(blocks)
-              };
-              
-              if (chain === 'solana') {
-                console.log(`Solana metrics: TPS=${result.tps}, BlockTime=${result.blockTime}, Blocks=${blocks.length}`);
-              }
-              
-              return result;
-            } else {
-              console.error(`${chain}: Only got ${blocks.length} blocks, need at least 2`);
-            }
-          } catch (error: any) {
-            console.error(`Error collecting ${chain}:`, error.message || error);
+    const realtimeMetrics = await Promise.allSettled(
+      chains.map(async (chain) => {
+        try {
+          const chainCollector = collector.collectors.get(chain);
+          if (!chainCollector) {
+            throw new Error(`Collector not found for ${chain}`);
           }
           
-          return {
-            chain,
-            timestamp: Date.now(),
-            tps: 0,
-            blockTime: 0,
-            confirmationDelay: 0
-          };
-        })
-      );
+          const blocks: any[] = [];
+          
+          if (chain === 'solana') {
+            const solanaCollector = chainCollector as any;
+            const currentSlot = await solanaCollector.connection.getSlot();
+            const slotsToFetch = [currentSlot, currentSlot - 1, currentSlot - 2];
+            
+            const slotResults = await Promise.allSettled(
+              slotsToFetch.map(slot => solanaCollector.getBlockByNumber(slot))
+            );
+            
+            for (const result of slotResults) {
+              if (result.status === 'fulfilled' && result.value && result.value.transactionCount !== undefined) {
+                blocks.push(result.value);
+              }
+            }
+          } else {
+            const blockData = await collector.collect(chain);
+            blocks.push(blockData);
+            
+            if (chainCollector.getBlockByNumber) {
+              const prevBlock = await chainCollector.getBlockByNumber(blockData.blockNumber - 1).catch(() => null);
+              if (prevBlock) {
+                blocks.unshift(prevBlock);
+              }
+            }
+          }
+          
+          if (blocks.length >= 2) {
+            return {
+              chain,
+              timestamp: Date.now(),
+              tps: processor.calculateTPS(blocks, chain),
+              blockTime: processor.calculateBlockTime(blocks),
+              confirmationDelay: processor.calculateConfirmationDelay(blocks)
+            };
+          }
+          
+          throw new Error(`Insufficient blocks: ${blocks.length}`);
+        } catch (error: any) {
+          console.error(`Error collecting ${chain}:`, error.message || error);
+          throw error;
+        }
+      })
+    );
     
-    const metrics = realtimeMetrics;
+    const metrics = realtimeMetrics.map((result, index) => {
+      if (result.status === 'fulfilled') {
+        return result.value;
+      }
+      return {
+        chain: chains[index],
+        timestamp: Date.now(),
+        tps: 0,
+        blockTime: 0,
+        confirmationDelay: 0
+      };
+    });
+    
     const responseTime = Date.now() - startTime;
 
     res.json({
