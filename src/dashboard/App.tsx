@@ -92,7 +92,16 @@ function App() {
   }, []);
 
   useEffect(() => {
-    fetchMetrics();
+    fetch('/api/history')
+      .then(res => res.json())
+      .then(result => {
+        if (result.data && Object.keys(result.data).length > 0) {
+          setHistory(result.data);
+        }
+        fetchMetrics();
+      })
+      .catch(() => fetchMetrics());
+    
     const interval = setInterval(() => fetchMetrics(false), 3000);
     return () => clearInterval(interval);
   }, [fetchMetrics]);

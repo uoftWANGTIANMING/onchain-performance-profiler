@@ -79,6 +79,31 @@ app.get('/api/metrics', cacheMiddleware, async (req, res) => {
   }
 });
 
+app.post('/api/save-history', express.json(), async (req, res) => {
+  try {
+    const history = req.body;
+    await saveMetricsHistory(history);
+    res.json({ success: true, message: 'History saved successfully' });
+  } catch (error) {
+    res.status(500).json({ 
+      error: 'Failed to save history',
+      message: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+app.get('/api/history', async (req, res) => {
+  try {
+    const history = await loadMetricsHistory();
+    res.json({ data: history });
+  } catch (error) {
+    res.status(500).json({ 
+      error: 'Failed to load history',
+      message: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
 app.get('/api/metrics/:chain', cacheMiddleware, async (req, res) => {
   try {
     const { chain } = req.params;
