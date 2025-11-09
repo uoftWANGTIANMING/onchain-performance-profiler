@@ -54,7 +54,46 @@ app.get('/api/health', async (req, res) => {
 app.get('/api/metrics', cacheMiddleware, async (req, res) => {
   try {
     const startTime = Date.now();
-    const metrics = await processor.processAllChains();
+    let metrics = await processor.processAllChains();
+    
+    const hasData = metrics.some(m => m.tps > 0 || m.blockTime > 0);
+    if (!hasData) {
+      const chains = Object.keys(CHAINS);
+      const realtimeMetrics = await Promise.all(
+        chains.map(async (chain) => {
+          try {
+            const blocks: any[] = [];
+            for (let i = 0; i < 10; i++) {
+              try {
+                const blockData = await collector.collect(chain);
+                blocks.push(blockData);
+                await new Promise(resolve => setTimeout(resolve, 1000));
+              } catch {
+                break;
+              }
+            }
+            if (blocks.length >= 2) {
+              return {
+                chain,
+                timestamp: Date.now(),
+                tps: processor.calculateTPS(blocks),
+                blockTime: processor.calculateBlockTime(blocks),
+                confirmationDelay: processor.calculateConfirmationDelay(blocks)
+              };
+            }
+          } catch {}
+          return {
+            chain,
+            timestamp: Date.now(),
+            tps: 0,
+            blockTime: 0,
+            confirmationDelay: 0
+          };
+        })
+      );
+      metrics = realtimeMetrics;
+    }
+    
     const responseTime = Date.now() - startTime;
 
     res.json({

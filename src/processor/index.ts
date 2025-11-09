@@ -24,7 +24,7 @@ export class Processor {
     }
   }
 
-  calculateTPS(blocks: BlockData[]): number {
+  public calculateTPS(blocks: BlockData[]): number {
     if (blocks.length < 2) return 0;
 
     const sorted = blocks.sort((a, b) => a.timestamp - b.timestamp);
@@ -53,7 +53,7 @@ export class Processor {
     return totalTxs / timeDiff;
   }
 
-  calculateBlockTime(blocks: BlockData[]): number {
+  public calculateBlockTime(blocks: BlockData[]): number {
     if (blocks.length < 2) return 0;
 
     const sorted = blocks.sort((a, b) => a.blockNumber - b.blockNumber);
@@ -83,7 +83,7 @@ export class Processor {
     return blockTimes.reduce((a, b) => a + b, 0) / blockTimes.length;
   }
 
-  calculateConfirmationDelay(blocks: BlockData[]): number {
+  public calculateConfirmationDelay(blocks: BlockData[]): number {
     if (blocks.length < 2) return 0;
 
     const sorted = blocks.sort((a, b) => a.timestamp - b.timestamp);
