@@ -2,6 +2,8 @@
 
 Lightweight multi-chain performance metrics measurement and visualization system.
 
+**Live Demo**: [https://profiler.tianming.online/](https://profiler.tianming.online/)
+
 ## Features
 
 - Collect performance data from Solana, Ethereum, Arbitrum, Base
@@ -76,4 +78,34 @@ src/
 ## Local Development
 
 The system uses local file system storage (`data/` directory) for block data. Make sure the collector is running to populate data.
+
+## Deployment
+
+### Local Deployment
+
+Build the project:
+
+```bash
+npm run build
+```
+
+The built files will be in the `dist/` directory. You can serve them with any static file server:
+
+```bash
+npm run preview
+```
+
+Or use a simple HTTP server:
+
+```bash
+npx serve dist
+```
+
+### Production Deployment
+
+The project is configured for Vercel deployment. The production build automatically includes static metrics data for display.
+
+**Live Demo**: [https://profiler.tianming.online/](https://profiler.tianming.online/)
+
+The production version displays a fixed 2-minute snapshot of performance metrics collected locally, providing a pure frontend demonstration without requiring backend services.
 
