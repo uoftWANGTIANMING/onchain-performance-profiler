@@ -62,29 +62,33 @@ app.get('/api/metrics', cacheMiddleware, async (req, res) => {
       const realtimeMetrics = await Promise.all(
         chains.map(async (chain) => {
           try {
-            const blockCounts: Record<string, number> = {
-              ethereum: 50,
-              arbitrum: 100,
-              base: 50,
-              solana: 50
-            };
-            const blockCount = blockCounts[chain] || 30;
-            const blocks: any[] = [];
+            const blockData = await collector.collect(chain);
+            const chainCollector = collector.collectors.get(chain);
             
-            for (let i = 0; i < blockCount; i++) {
-              try {
-                const blockData = await collector.collect(chain);
-                blocks.push(blockData);
-                
-                if (i < blockCount - 1) {
-                  const delay = chain === 'arbitrum' ? 200 : chain === 'base' ? 2000 : chain === 'solana' ? 400 : 12000;
-                  await new Promise(resolve => setTimeout(resolve, delay));
+            if (!chainCollector) {
+              throw new Error(`Collector not found for ${chain}`);
+            }
+            
+            const blocks: any[] = [blockData];
+            const blockCounts: Record<string, number> = {
+              ethereum: 20,
+              arbitrum: 50,
+              base: 20,
+              solana: 20
+            };
+            const count = blockCounts[chain] || 20;
+            
+            if (chainCollector.getBlockByNumber) {
+              let currentBlock = blockData.blockNumber;
+              for (let i = 1; i < count; i++) {
+                try {
+                  currentBlock = currentBlock - 1;
+                  if (currentBlock < 0) break;
+                  const historicalBlock = await chainCollector.getBlockByNumber(currentBlock);
+                  blocks.unshift(historicalBlock);
+                } catch {
+                  break;
                 }
-              } catch (error) {
-                if (blocks.length < 2) {
-                  throw error;
-                }
-                break;
               }
             }
             

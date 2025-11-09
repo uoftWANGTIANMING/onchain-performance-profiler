@@ -10,7 +10,7 @@ import path from 'path';
 const DATA_DIR = path.join(process.cwd(), 'data');
 
 export class Collector {
-  private collectors: Map<string, EVMCollector | SolanaCollector> = new Map();
+  public collectors: Map<string, EVMCollector | SolanaCollector> = new Map();
   private rateLimiter: RateLimiter;
 
   constructor() {
