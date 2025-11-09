@@ -6,6 +6,7 @@ import { collector } from '../src/collector/index.js';
 import { rateLimiter, cacheMiddleware } from '../src/api/middleware.js';
 import { CHAINS } from '../src/config/chains.js';
 import { env } from '../src/config/env.js';
+import { loadMetricsHistory } from '../src/api/save-metrics.js';
 
 const app = express();
 app.use(cors());
@@ -54,7 +55,24 @@ app.get('/api/health', async (req, res) => {
 app.get('/api/metrics', cacheMiddleware, async (req, res) => {
   try {
     const startTime = Date.now();
-    const metrics = await processor.processAllChains();
+    let metrics = await processor.processAllChains();
+    
+    const validMetrics = metrics.filter(m => m.tps > 0 || m.blockTime > 0);
+    if (validMetrics.length === 0) {
+      const savedHistory = await loadMetricsHistory();
+      if (Object.keys(savedHistory).length > 0) {
+        const latestMetrics: any[] = [];
+        for (const [chain, data] of Object.entries(savedHistory)) {
+          if (data.length > 0) {
+            latestMetrics.push(data[data.length - 1]);
+          }
+        }
+        if (latestMetrics.length > 0) {
+          metrics = latestMetrics;
+        }
+      }
+    }
+    
     const responseTime = Date.now() - startTime;
 
     res.json({
@@ -74,6 +92,18 @@ app.get('/api/metrics', cacheMiddleware, async (req, res) => {
       message: errorMessage,
       timestamp: new Date().toISOString(),
       details: process.env.NODE_ENV === 'development' ? errorStack : undefined
+    });
+  }
+});
+
+app.get('/api/history', async (req, res) => {
+  try {
+    const history = await loadMetricsHistory();
+    res.json({ data: history });
+  } catch (error) {
+    res.status(500).json({ 
+      error: 'Failed to load history',
+      message: error instanceof Error ? error.message : 'Unknown error'
     });
   }
 });

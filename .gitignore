@@ -1,6 +1,7 @@
 node_modules/
 dist/
 data/
+metrics-history/
 .env
 *.log
 .DS_Store

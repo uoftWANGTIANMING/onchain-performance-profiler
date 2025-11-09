@@ -6,6 +6,7 @@ import { collector } from '../collector/index.js';
 import { rateLimiter, cacheMiddleware } from './middleware.js';
 import { CHAINS } from '../config/chains.js';
 import { env } from '../config/env.js';
+import { saveMetricsHistory, loadMetricsHistory } from './save-metrics.js';
 
 const app = express();
 app.use(cors());

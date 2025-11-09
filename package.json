@@ -9,7 +9,8 @@
     "dev:api": "tsx watch src/api/index.ts",
     "dev:dashboard": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "export-metrics": "tsx scripts/export-metrics.js"
   },
   "dependencies": {
     "ethers": "^6.9.0",

@@ -68,6 +68,19 @@ function App() {
             newHistory[m.chain] = newHistory[m.chain].slice(-50);
           }
         });
+        
+        const twoMinutesAgo = Date.now() - 2 * 60 * 1000;
+        const filteredHistory: Record<string, PerformanceMetrics[]> = {};
+        for (const [chain, data] of Object.entries(newHistory)) {
+          filteredHistory[chain] = data.filter(m => m.timestamp >= twoMinutesAgo);
+        }
+        
+        fetch('/api/save-history', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(filteredHistory)
+        }).catch(() => {});
+        
         return newHistory;
       });
     } catch (err) {
