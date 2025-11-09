@@ -8,10 +8,10 @@
     "dev:collector": "tsx watch src/collector/index.ts",
     "dev:api": "tsx watch src/api/index.ts",
     "dev:dashboard": "vite",
-    "build": "npm run prepare-deployment && vite build",
+    "build": "node scripts/prepare-deployment.mjs && vite build",
     "preview": "vite preview",
     "export-metrics": "tsx scripts/export-metrics.js",
-    "prepare-deployment": "tsx scripts/prepare-deployment.js"
+    "prepare-deployment": "node scripts/prepare-deployment.mjs"
   },
   "dependencies": {
     "ethers": "^6.9.0",

@@ -16,8 +16,14 @@ async function prepareDeployment() {
     const sourceFile = path.join(METRICS_HISTORY_DIR, 'metrics-history.json');
     const targetFile = path.join(PUBLIC_DIR, 'metrics-history.json');
     
-    await fs.copyFile(sourceFile, targetFile);
-    console.log(`✓ Copied metrics-history.json to public/`);
+    try {
+      await fs.access(sourceFile);
+      await fs.copyFile(sourceFile, targetFile);
+      console.log(`✓ Copied metrics-history.json to public/`);
+    } catch {
+      console.log(`⚠ metrics-history.json not found, skipping copy`);
+    }
+    
     console.log(`  Ready for deployment!`);
   } catch (error) {
     console.error('Failed to prepare deployment:', error);
