@@ -90,7 +90,7 @@ function App() {
 
   useEffect(() => {
     fetchMetrics();
-    const interval = setInterval(() => fetchMetrics(false), 10000);
+    const interval = setInterval(() => fetchMetrics(false), 5000);
     return () => clearInterval(interval);
   }, [fetchMetrics]);
 
