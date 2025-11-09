@@ -87,7 +87,7 @@ class ResponseCache {
 }
 
 export const rateLimiter = new ApiRateLimiter(100, 60000);
-export const responseCache = new ResponseCache(5000);
+export const responseCache = new ResponseCache(2000);
 
 export function cacheMiddleware(req: Request, res: Response, next: NextFunction) {
   const cacheKey = responseCache.generateKey(req);
@@ -95,18 +95,7 @@ export function cacheMiddleware(req: Request, res: Response, next: NextFunction)
 
   if (cached) {
     res.set(cached.headers);
-    const cachedData = JSON.parse(JSON.stringify(cached.data));
-    if (cachedData.data && Array.isArray(cachedData.data)) {
-      cachedData.data.forEach((item: any) => {
-        if (item.timestamp) {
-          item.timestamp = Date.now();
-        }
-      });
-    }
-    if (cachedData.meta && cachedData.meta.timestamp) {
-      cachedData.meta.timestamp = new Date().toISOString();
-    }
-    return res.json(cachedData);
+    return res.json(cached.data);
   }
 
   const originalJson = res.json.bind(res);

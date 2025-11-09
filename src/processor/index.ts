@@ -10,7 +10,7 @@ export class Processor {
   private cache: MetricsCache;
 
   constructor() {
-    this.cache = new MetricsCache(5000);
+    this.cache = new MetricsCache(2000);
   }
 
   async loadBlockData(chain: string): Promise<BlockData[]> {
