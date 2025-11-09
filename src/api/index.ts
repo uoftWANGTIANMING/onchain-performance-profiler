@@ -1,9 +1,11 @@
+import '../config/env.js';
 import express from 'express';
 import cors from 'cors';
 import { Processor } from '../processor/index.js';
 import { collector } from '../collector/index.js';
 import { rateLimiter, cacheMiddleware } from './middleware.js';
 import { CHAINS } from '../config/chains.js';
+import { env } from '../config/env.js';
 
 const app = express();
 app.use(cors());
@@ -137,8 +139,7 @@ app.use((err: Error, req: express.Request, res: express.Response, next: express.
   });
 });
 
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`API server running on port ${PORT}`);
+app.listen(env.port, () => {
+  console.log(`API server running on port ${env.port}`);
 });
 

@@ -1,3 +1,5 @@
+import { env } from './env.js';
+
 export interface ChainConfig {
   name: string;
   rpcUrl: string;
@@ -8,25 +10,25 @@ export interface ChainConfig {
 export const CHAINS: Record<string, ChainConfig> = {
   ethereum: {
     name: 'Ethereum',
-    rpcUrl: 'https://eth.llamarpc.com',
+    rpcUrl: env.ethereumRpcUrl,
     chainId: 1,
     type: 'evm'
   },
   arbitrum: {
     name: 'Arbitrum',
-    rpcUrl: 'https://arb1.arbitrum.io/rpc',
+    rpcUrl: env.arbitrumRpcUrl,
     chainId: 42161,
     type: 'evm'
   },
   base: {
     name: 'Base',
-    rpcUrl: 'https://mainnet.base.org',
+    rpcUrl: env.baseRpcUrl,
     chainId: 8453,
     type: 'evm'
   },
   solana: {
     name: 'Solana',
-    rpcUrl: 'https://api.mainnet-beta.solana.com',
+    rpcUrl: env.solanaRpcUrl,
     type: 'solana'
   }
 };

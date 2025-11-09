@@ -1,3 +1,4 @@
+import '../config/env.js';
 import { CHAINS, ChainConfig } from '../config/chains.js';
 import { EVMCollector } from './evm.js';
 import { SolanaCollector } from './solana.js';

@@ -16,6 +16,16 @@ Lightweight multi-chain performance metrics measurement and visualization system
 npm install
 ```
 
+### Configuration
+
+Copy `.env.example` to `.env` and configure RPC URLs (optional, defaults are provided):
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env` to customize RPC endpoints if needed.
+
 ### Run
 
 Development mode (starts collector, API, and frontend together):
