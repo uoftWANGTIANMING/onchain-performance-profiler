@@ -87,7 +87,7 @@ class ResponseCache {
 }
 
 export const rateLimiter = new ApiRateLimiter(100, 60000);
-export const responseCache = new ResponseCache(30000);
+export const responseCache = new ResponseCache(60000);
 
 export function cacheMiddleware(req: Request, res: Response, next: NextFunction) {
   const cacheKey = responseCache.generateKey(req);

@@ -57,9 +57,8 @@ app.get('/api/metrics', cacheMiddleware, async (req, res) => {
     let metrics = await processor.processAllChains();
     
     const validMetrics = metrics.filter(m => m.tps > 0 || m.blockTime > 0);
-    const hasData = validMetrics.length > 0;
     
-    if (!hasData) {
+    if (validMetrics.length === 0) {
       const chains = Object.keys(CHAINS);
       const realtimeMetrics = await Promise.all(
         chains.map(async (chain) => {
@@ -67,75 +66,65 @@ app.get('/api/metrics', cacheMiddleware, async (req, res) => {
             const blockData = await collector.collect(chain);
             const chainCollector = collector.collectors.get(chain);
             
-            if (!chainCollector) {
-              throw new Error(`Collector not found for ${chain}`);
+            if (!chainCollector || !chainCollector.getBlockByNumber) {
+              return {
+                chain,
+                timestamp: Date.now(),
+                tps: 0,
+                blockTime: 0,
+                confirmationDelay: 0
+              };
             }
             
             const blocks: any[] = [blockData];
             
             if (chain === 'solana' && chainCollector.getRecentSlots) {
               try {
-                const slots = await chainCollector.getRecentSlots(20);
-                const slotPromises = slots.slice(1).map(slot => 
+                const slots = await chainCollector.getRecentSlots(5);
+                const slotPromises = slots.slice(1, 4).map(slot => 
                   chainCollector.getBlockByNumber(slot).catch(() => null)
                 );
                 const slotResults = await Promise.all(slotPromises);
                 for (const result of slotResults.reverse()) {
                   if (result) blocks.unshift(result);
                 }
-              } catch (error) {
-                console.error(`Error fetching Solana slots:`, error);
-              }
-            } else if (chainCollector.getBlockByNumber) {
+              } catch {}
+            } else {
               const blockCounts: Record<string, number> = {
-                ethereum: 20,
-                arbitrum: 30,
-                base: 20
+                ethereum: 3,
+                arbitrum: 5,
+                base: 3
               };
-              const count = blockCounts[chain] || 20;
+              const count = blockCounts[chain] || 3;
               let currentBlock = blockData.blockNumber;
-              const batchSize = 10;
               
-              for (let batch = 0; batch < Math.ceil(count / batchSize); batch++) {
-                const promises: Promise<any>[] = [];
-                const start = batch * batchSize + 1;
-                const end = Math.min(start + batchSize, count + 1);
-                
-                for (let i = start; i < end; i++) {
-                  const targetBlock = currentBlock - i;
-                  if (targetBlock < 0) break;
+              const promises: Promise<any>[] = [];
+              for (let i = 1; i <= count && i <= 3; i++) {
+                const targetBlock = currentBlock - i;
+                if (targetBlock >= 0) {
                   promises.push(
                     chainCollector.getBlockByNumber(targetBlock).catch(() => null)
                   );
                 }
-                
-                const results = await Promise.all(promises);
-                for (const result of results.reverse()) {
-                  if (result) blocks.unshift(result);
-                }
+              }
+              
+              const results = await Promise.all(promises);
+              for (const result of results.reverse()) {
+                if (result) blocks.unshift(result);
               }
             }
             
             if (blocks.length >= 2) {
-              const calculated = {
+              return {
                 chain,
                 timestamp: Date.now(),
                 tps: processor.calculateTPS(blocks),
                 blockTime: processor.calculateBlockTime(blocks),
                 confirmationDelay: processor.calculateConfirmationDelay(blocks)
               };
-              
-              if (calculated.tps > 0 || calculated.blockTime > 0) {
-                return calculated;
-              }
             }
           } catch (error) {
             console.error(`Error collecting ${chain}:`, error);
-          }
-          
-          const existingMetric = metrics.find(m => m.chain === chain);
-          if (existingMetric && (existingMetric.tps > 0 || existingMetric.blockTime > 0)) {
-            return existingMetric;
           }
           
           return {
@@ -148,15 +137,7 @@ app.get('/api/metrics', cacheMiddleware, async (req, res) => {
         })
       );
       
-      const finalMetrics = realtimeMetrics.map(newMetric => {
-        const existing = metrics.find(m => m.chain === newMetric.chain);
-        if (newMetric.tps === 0 && newMetric.blockTime === 0 && existing && (existing.tps > 0 || existing.blockTime > 0)) {
-          return existing;
-        }
-        return newMetric;
-      });
-      
-      metrics = finalMetrics;
+      metrics = realtimeMetrics;
     }
     
     const responseTime = Date.now() - startTime;
