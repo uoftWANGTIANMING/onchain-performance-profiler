@@ -110,7 +110,7 @@ export class Processor {
       return result;
     }
 
-    const recentBlocks = blocks.slice(-20);
+    const recentBlocks = blocks.slice(-10);
 
     const result = {
       chain,

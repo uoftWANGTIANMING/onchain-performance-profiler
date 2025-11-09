@@ -90,7 +90,7 @@ export class Collector {
     return results;
   }
 
-  start(intervalMs: number = 10000): void {
+  start(intervalMs: number = 5000): void {
     this.collectAll();
     setInterval(() => {
       this.collectAll();
@@ -99,5 +99,5 @@ export class Collector {
 }
 
 export const collector = new Collector();
-collector.start(10000);
+collector.start(5000);
 
