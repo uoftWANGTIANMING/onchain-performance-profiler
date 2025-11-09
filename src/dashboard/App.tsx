@@ -41,10 +41,12 @@ function App() {
 
       const response = await fetch('/api/metrics');
       if (!response.ok) {
-        throw new Error('Failed to fetch metrics');
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || errorData.error || 'Failed to fetch metrics');
       }
-      const data = await response.json();
-      setMetrics(data);
+      const result = await response.json();
+      const data = result.data || result;
+      setMetrics(Array.isArray(data) ? data : []);
 
       setHistory(prev => {
         const newHistory = { ...prev };
