@@ -10,7 +10,7 @@ export class Processor {
   private cache: MetricsCache;
 
   constructor() {
-    this.cache = new MetricsCache(2000);
+    this.cache = new MetricsCache(1000);
   }
 
   async loadBlockData(chain: string): Promise<BlockData[]> {
@@ -110,7 +110,7 @@ export class Processor {
       return result;
     }
 
-    const recentBlocks = blocks.slice(-100);
+    const recentBlocks = blocks.slice(-20);
 
     const result = {
       chain,
