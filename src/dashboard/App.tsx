@@ -54,12 +54,26 @@ function App() {
           if (!newHistory[m.chain]) {
             newHistory[m.chain] = [];
           }
-          const existingIndex = newHistory[m.chain].findIndex(item => item.timestamp === m.timestamp);
-          if (existingIndex >= 0) {
-            newHistory[m.chain][existingIndex] = m;
-          } else {
-            newHistory[m.chain].push(m);
+          
+          const isValidData = m.tps > 0 || m.blockTime > 0;
+          const lastValidData = [...newHistory[m.chain]].reverse().find(item => item.tps > 0 || item.blockTime > 0);
+          
+          if (isValidData) {
+            const existingIndex = newHistory[m.chain].findIndex(item => item.timestamp === m.timestamp);
+            if (existingIndex >= 0) {
+              newHistory[m.chain][existingIndex] = m;
+            } else {
+              newHistory[m.chain].push(m);
+            }
+          } else if (lastValidData) {
+            const existingIndex = newHistory[m.chain].findIndex(item => item.timestamp === m.timestamp);
+            if (existingIndex >= 0) {
+              newHistory[m.chain][existingIndex] = { ...lastValidData, timestamp: m.timestamp };
+            } else {
+              newHistory[m.chain].push({ ...lastValidData, timestamp: m.timestamp });
+            }
           }
+          
           if (newHistory[m.chain].length > 50) {
             newHistory[m.chain] = newHistory[m.chain].slice(-50);
           }
