@@ -1,0 +1,1410 @@
+{
+  "ethereum": [
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715381715,
+      "tps": 17.75,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715381715,
+      "tps": 17.75,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715382804,
+      "tps": 17.75,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715382804,
+      "tps": 17.75,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715386713,
+      "tps": 17.75,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715386713,
+      "tps": 17.75,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715389712,
+      "tps": 17.75,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715389712,
+      "tps": 17.75,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715392709,
+      "tps": 19.685185185185187,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715392709,
+      "tps": 19.685185185185187,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715394798,
+      "tps": 19.685185185185187,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715394798,
+      "tps": 19.685185185185187,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715398709,
+      "tps": 19.685185185185187,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715398709,
+      "tps": 19.685185185185187,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715401717,
+      "tps": 19.685185185185187,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715401717,
+      "tps": 19.685185185185187,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715404716,
+      "tps": 19.444444444444443,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715404716,
+      "tps": 19.444444444444443,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715407708,
+      "tps": 19.444444444444443,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715407708,
+      "tps": 19.444444444444443,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715410710,
+      "tps": 19.444444444444443,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715410710,
+      "tps": 19.444444444444443,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715413704,
+      "tps": 19.444444444444443,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715413704,
+      "tps": 19.444444444444443,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715417019,
+      "tps": 19.85185185185185,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715417019,
+      "tps": 19.85185185185185,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715419706,
+      "tps": 19.85185185185185,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715419706,
+      "tps": 19.85185185185185,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715422711,
+      "tps": 19.85185185185185,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715422711,
+      "tps": 19.85185185185185,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715425707,
+      "tps": 19.85185185185185,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715425707,
+      "tps": 19.85185185185185,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715428709,
+      "tps": 18.546296296296298,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715428709,
+      "tps": 18.546296296296298,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715431710,
+      "tps": 18.546296296296298,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715431710,
+      "tps": 18.546296296296298,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715434706,
+      "tps": 18.546296296296298,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715434706,
+      "tps": 18.546296296296298,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715437716,
+      "tps": 18.546296296296298,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715437716,
+      "tps": 18.546296296296298,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715440713,
+      "tps": 18.546296296296298,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715440713,
+      "tps": 18.546296296296298,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715443705,
+      "tps": 21.944444444444443,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715443705,
+      "tps": 21.944444444444443,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715446713,
+      "tps": 21.944444444444443,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715446713,
+      "tps": 21.944444444444443,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715449705,
+      "tps": 21.944444444444443,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715449705,
+      "tps": 21.944444444444443,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715452708,
+      "tps": 22.61111111111111,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    },
+    {
+      "chain": "ethereum",
+      "timestamp": 1762715452708,
+      "tps": 22.61111111111111,
+      "blockTime": 12,
+      "confirmationDelay": 12
+    }
+  ],
+  "arbitrum": [
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715381715,
+      "tps": 3,
+      "blockTime": 0.25229276895943564,
+      "confirmationDelay": 3
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715381715,
+      "tps": 3,
+      "blockTime": 0.25229276895943564,
+      "confirmationDelay": 3
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715382803,
+      "tps": 3.0454545454545454,
+      "blockTime": 0.27292768959435626,
+      "confirmationDelay": 2
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715382803,
+      "tps": 3.0454545454545454,
+      "blockTime": 0.27292768959435626,
+      "confirmationDelay": 2
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715386713,
+      "tps": 3.8333333333333335,
+      "blockTime": 0.2605820105820106,
+      "confirmationDelay": 3
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715386713,
+      "tps": 3.8333333333333335,
+      "blockTime": 0.2605820105820106,
+      "confirmationDelay": 3
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715389713,
+      "tps": 6.318181818181818,
+      "blockTime": 0.2923280423280423,
+      "confirmationDelay": 2
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715389713,
+      "tps": 6.318181818181818,
+      "blockTime": 0.2923280423280423,
+      "confirmationDelay": 2
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715392709,
+      "tps": 6.409090909090909,
+      "blockTime": 0.29466230936819177,
+      "confirmationDelay": 2
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715392709,
+      "tps": 6.409090909090909,
+      "blockTime": 0.29466230936819177,
+      "confirmationDelay": 2
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715394797,
+      "tps": 6.409090909090909,
+      "blockTime": 0.29466230936819177,
+      "confirmationDelay": 2
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715394797,
+      "tps": 6.409090909090909,
+      "blockTime": 0.29466230936819177,
+      "confirmationDelay": 2
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715398709,
+      "tps": 6.7272727272727275,
+      "blockTime": 0.31771968046477855,
+      "confirmationDelay": 2
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715398709,
+      "tps": 6.7272727272727275,
+      "blockTime": 0.31771968046477855,
+      "confirmationDelay": 2
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715401717,
+      "tps": 7.166666666666667,
+      "blockTime": 0.29941902687000727,
+      "confirmationDelay": 3
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715401717,
+      "tps": 7.166666666666667,
+      "blockTime": 0.29941902687000727,
+      "confirmationDelay": 3
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715404717,
+      "tps": 8.681818181818182,
+      "blockTime": 0.3142338416848221,
+      "confirmationDelay": 2
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715404717,
+      "tps": 8.681818181818182,
+      "blockTime": 0.3142338416848221,
+      "confirmationDelay": 2
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715407708,
+      "tps": 9.571428571428571,
+      "blockTime": 0.30827886710239655,
+      "confirmationDelay": 1
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715407708,
+      "tps": 9.571428571428571,
+      "blockTime": 0.30827886710239655,
+      "confirmationDelay": 1
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715410710,
+      "tps": 9.571428571428571,
+      "blockTime": 0.30827886710239655,
+      "confirmationDelay": 1
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715410710,
+      "tps": 9.571428571428571,
+      "blockTime": 0.30827886710239655,
+      "confirmationDelay": 1
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715413703,
+      "tps": 6.476190476190476,
+      "blockTime": 0.2805010893246187,
+      "confirmationDelay": 1
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715413703,
+      "tps": 6.476190476190476,
+      "blockTime": 0.2805010893246187,
+      "confirmationDelay": 1
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715417018,
+      "tps": 6.380952380952381,
+      "blockTime": 0.2805010893246187,
+      "confirmationDelay": 1
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715417018,
+      "tps": 6.380952380952381,
+      "blockTime": 0.2805010893246187,
+      "confirmationDelay": 1
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715419706,
+      "tps": 6.380952380952381,
+      "blockTime": 0.2805010893246187,
+      "confirmationDelay": 1
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715419706,
+      "tps": 6.380952380952381,
+      "blockTime": 0.2805010893246187,
+      "confirmationDelay": 1
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715422711,
+      "tps": 6.6,
+      "blockTime": 0.2738970588235294,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715422711,
+      "tps": 6.6,
+      "blockTime": 0.2738970588235294,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715425707,
+      "tps": 6.6,
+      "blockTime": 0.2738970588235294,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715425707,
+      "tps": 6.6,
+      "blockTime": 0.2738970588235294,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715428709,
+      "tps": 3.8,
+      "blockTime": 0.26938670204924076,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715428709,
+      "tps": 3.8,
+      "blockTime": 0.26938670204924076,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715431710,
+      "tps": 3,
+      "blockTime": 0.25936163939259915,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715431710,
+      "tps": 3,
+      "blockTime": 0.25936163939259915,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715434707,
+      "tps": 3.4,
+      "blockTime": 0.26337289301685585,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715434707,
+      "tps": 3.4,
+      "blockTime": 0.26337289301685585,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715437715,
+      "tps": 2.857142857142857,
+      "blockTime": 0.3096835225318197,
+      "confirmationDelay": 5
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715437715,
+      "tps": 2.857142857142857,
+      "blockTime": 0.3096835225318197,
+      "confirmationDelay": 5
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715440713,
+      "tps": 2.857142857142857,
+      "blockTime": 0.3096835225318197,
+      "confirmationDelay": 5
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715440713,
+      "tps": 2.857142857142857,
+      "blockTime": 0.3096835225318197,
+      "confirmationDelay": 5
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715443705,
+      "tps": 2.7142857142857144,
+      "blockTime": 0.33528265107212474,
+      "confirmationDelay": 5
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715443705,
+      "tps": 2.7142857142857144,
+      "blockTime": 0.33528265107212474,
+      "confirmationDelay": 5
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715446714,
+      "tps": 2.16,
+      "blockTime": 0.3174603174603175,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715446714,
+      "tps": 2.16,
+      "blockTime": 0.3174603174603175,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715449704,
+      "tps": 2.8095238095238093,
+      "blockTime": 0.4227234753550543,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715449704,
+      "tps": 2.8095238095238093,
+      "blockTime": 0.4227234753550543,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715452708,
+      "tps": 2.4761904761904763,
+      "blockTime": 0.48830409356725146,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "arbitrum",
+      "timestamp": 1762715452708,
+      "tps": 2.4761904761904763,
+      "blockTime": 0.48830409356725146,
+      "confirmationDelay": 4
+    }
+  ],
+  "base": [
+    {
+      "chain": "base",
+      "timestamp": 1762715381716,
+      "tps": 117.06666666666666,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715381716,
+      "tps": 117.06666666666666,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715382804,
+      "tps": 116.4,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715382804,
+      "tps": 116.4,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715386714,
+      "tps": 118.16666666666667,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715386714,
+      "tps": 118.16666666666667,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715389713,
+      "tps": 118.16666666666667,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715389713,
+      "tps": 118.16666666666667,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715392710,
+      "tps": 111.53125,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715392710,
+      "tps": 111.53125,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715394799,
+      "tps": 111.53125,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715394799,
+      "tps": 111.53125,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715398710,
+      "tps": 107,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715398710,
+      "tps": 107,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715401716,
+      "tps": 108.91176470588235,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715401716,
+      "tps": 108.91176470588235,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715404716,
+      "tps": 118.34375,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715404716,
+      "tps": 118.34375,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715407709,
+      "tps": 111.97058823529412,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715407709,
+      "tps": 111.97058823529412,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715410711,
+      "tps": 111.97058823529412,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715410711,
+      "tps": 111.97058823529412,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715413703,
+      "tps": 128.09375,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715413703,
+      "tps": 128.09375,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715417019,
+      "tps": 122.29411764705883,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715417019,
+      "tps": 122.29411764705883,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715419707,
+      "tps": 122.29411764705883,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715419707,
+      "tps": 122.29411764705883,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715422712,
+      "tps": 140.56666666666666,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715422712,
+      "tps": 140.56666666666666,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715425707,
+      "tps": 140.56666666666666,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715425707,
+      "tps": 140.56666666666666,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715428710,
+      "tps": 141.2,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715428710,
+      "tps": 141.2,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715431709,
+      "tps": 130.03125,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715431709,
+      "tps": 130.03125,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715434706,
+      "tps": 130.03125,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715434706,
+      "tps": 130.03125,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715437716,
+      "tps": 122.55882352941177,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715437716,
+      "tps": 122.55882352941177,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715440714,
+      "tps": 122.55882352941177,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715440714,
+      "tps": 122.55882352941177,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715443705,
+      "tps": 116.69444444444444,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715443705,
+      "tps": 116.69444444444444,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715446713,
+      "tps": 113.08333333333333,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715446713,
+      "tps": 113.08333333333333,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715449705,
+      "tps": 113.08333333333333,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715449705,
+      "tps": 113.08333333333333,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715452709,
+      "tps": 105.16666666666667,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "base",
+      "timestamp": 1762715452709,
+      "tps": 105.16666666666667,
+      "blockTime": 2,
+      "confirmationDelay": 4
+    }
+  ],
+  "solana": [
+    {
+      "chain": "solana",
+      "timestamp": 1762715381716,
+      "tps": 514.75,
+      "blockTime": 0.38013468013468016,
+      "confirmationDelay": 3
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715381716,
+      "tps": 514.75,
+      "blockTime": 0.38013468013468016,
+      "confirmationDelay": 3
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715382804,
+      "tps": 588.047619047619,
+      "blockTime": 0.4037037037037037,
+      "confirmationDelay": 2
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715382804,
+      "tps": 588.047619047619,
+      "blockTime": 0.4037037037037037,
+      "confirmationDelay": 2
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715386712,
+      "tps": 588.047619047619,
+      "blockTime": 0.4037037037037037,
+      "confirmationDelay": 2
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715386712,
+      "tps": 588.047619047619,
+      "blockTime": 0.4037037037037037,
+      "confirmationDelay": 2
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715389714,
+      "tps": 600.4285714285714,
+      "blockTime": 0.41628787878787876,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715389714,
+      "tps": 600.4285714285714,
+      "blockTime": 0.41628787878787876,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715392710,
+      "tps": 502.68,
+      "blockTime": 0.43143939393939396,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715392710,
+      "tps": 502.68,
+      "blockTime": 0.43143939393939396,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715394798,
+      "tps": 567.1363636363636,
+      "blockTime": 0.4439393939393939,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715394798,
+      "tps": 567.1363636363636,
+      "blockTime": 0.4439393939393939,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715398710,
+      "tps": 526.5833333333334,
+      "blockTime": 0.44393939393939397,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715398710,
+      "tps": 526.5833333333334,
+      "blockTime": 0.44393939393939397,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715401717,
+      "tps": 526.5833333333334,
+      "blockTime": 0.44393939393939397,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715401717,
+      "tps": 526.5833333333334,
+      "blockTime": 0.44393939393939397,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715404717,
+      "tps": 495.3076923076923,
+      "blockTime": 0.4960227272727273,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715404717,
+      "tps": 495.3076923076923,
+      "blockTime": 0.4960227272727273,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715407709,
+      "tps": 516.92,
+      "blockTime": 0.4706439393939394,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715407709,
+      "tps": 516.92,
+      "blockTime": 0.4706439393939394,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715410711,
+      "tps": 516.92,
+      "blockTime": 0.4706439393939394,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715410711,
+      "tps": 516.92,
+      "blockTime": 0.4706439393939394,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715413704,
+      "tps": 509.6,
+      "blockTime": 0.46685606060606066,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715413704,
+      "tps": 509.6,
+      "blockTime": 0.46685606060606066,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715417020,
+      "tps": 509.6,
+      "blockTime": 0.46685606060606066,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715417020,
+      "tps": 509.6,
+      "blockTime": 0.46685606060606066,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715419707,
+      "tps": 519.875,
+      "blockTime": 0.4567099567099567,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715419707,
+      "tps": 519.875,
+      "blockTime": 0.4567099567099567,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715422712,
+      "tps": 584.4285714285714,
+      "blockTime": 0.4383116883116883,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715422712,
+      "tps": 584.4285714285714,
+      "blockTime": 0.4383116883116883,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715425708,
+      "tps": 584.4285714285714,
+      "blockTime": 0.4383116883116883,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715425708,
+      "tps": 584.4285714285714,
+      "blockTime": 0.4383116883116883,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715428710,
+      "tps": 603.4761904761905,
+      "blockTime": 0.4435064935064935,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715428710,
+      "tps": 603.4761904761905,
+      "blockTime": 0.4435064935064935,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715431710,
+      "tps": 603.4761904761905,
+      "blockTime": 0.4435064935064935,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715431710,
+      "tps": 603.4761904761905,
+      "blockTime": 0.4435064935064935,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715434707,
+      "tps": 594.2380952380952,
+      "blockTime": 0.5149350649350649,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715434707,
+      "tps": 594.2380952380952,
+      "blockTime": 0.5149350649350649,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715437716,
+      "tps": 504.44,
+      "blockTime": 0.4922348484848485,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715437716,
+      "tps": 504.44,
+      "blockTime": 0.4922348484848485,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715440714,
+      "tps": 628.7,
+      "blockTime": 0.503030303030303,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715440714,
+      "tps": 628.7,
+      "blockTime": 0.503030303030303,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715443706,
+      "tps": 611.952380952381,
+      "blockTime": 0.5026515151515152,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715443706,
+      "tps": 611.952380952381,
+      "blockTime": 0.5026515151515152,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715446714,
+      "tps": 611.952380952381,
+      "blockTime": 0.5026515151515152,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715446714,
+      "tps": 611.952380952381,
+      "blockTime": 0.5026515151515152,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715449705,
+      "tps": 634.5,
+      "blockTime": 0.49783549783549785,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715449705,
+      "tps": 634.5,
+      "blockTime": 0.49783549783549785,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715452709,
+      "tps": 555.1428571428571,
+      "blockTime": 0.5865800865800866,
+      "confirmationDelay": 4
+    },
+    {
+      "chain": "solana",
+      "timestamp": 1762715452709,
+      "tps": 555.1428571428571,
+      "blockTime": 0.5865800865800866,
+      "confirmationDelay": 4
+    }
+  ]
+}

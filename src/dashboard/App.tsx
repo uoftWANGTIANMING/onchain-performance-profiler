@@ -30,7 +30,39 @@ function App() {
   const [error, setError] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
 
+  const isProduction = import.meta.env.PROD;
+
+  const loadStaticData = useCallback(async () => {
+    try {
+      const response = await fetch('/metrics-history.json');
+      if (response.ok) {
+        const history = await response.json();
+        if (Object.keys(history).length > 0) {
+          setHistory(history);
+          const latestMetrics: PerformanceMetrics[] = [];
+          for (const [chain, data] of Object.entries(history)) {
+            if (Array.isArray(data) && data.length > 0) {
+              latestMetrics.push(data[data.length - 1]);
+            }
+          }
+          if (latestMetrics.length > 0) {
+            setMetrics(latestMetrics);
+          }
+          setLoading(false);
+          return true;
+        }
+      }
+    } catch (err) {
+      console.error('Failed to load static data:', err);
+    }
+    return false;
+  }, []);
+
   const fetchMetrics = useCallback(async (isManual = false) => {
+    if (isProduction) {
+      return;
+    }
+
     try {
       if (isManual) {
         setRefreshing(true);
@@ -89,22 +121,26 @@ function App() {
       setLoading(false);
       setRefreshing(false);
     }
-  }, []);
+  }, [isProduction]);
 
   useEffect(() => {
-    fetch('/api/history')
-      .then(res => res.json())
-      .then(result => {
-        if (result.data && Object.keys(result.data).length > 0) {
-          setHistory(result.data);
-        }
-        fetchMetrics();
-      })
-      .catch(() => fetchMetrics());
-    
-    const interval = setInterval(() => fetchMetrics(false), 3000);
-    return () => clearInterval(interval);
-  }, [fetchMetrics]);
+    if (isProduction) {
+      loadStaticData();
+    } else {
+      fetch('/api/history')
+        .then(res => res.json())
+        .then(result => {
+          if (result.data && Object.keys(result.data).length > 0) {
+            setHistory(result.data);
+          }
+          fetchMetrics();
+        })
+        .catch(() => fetchMetrics());
+      
+      const interval = setInterval(() => fetchMetrics(false), 3000);
+      return () => clearInterval(interval);
+    }
+  }, [isProduction, loadStaticData, fetchMetrics]);
 
   const comparisonData = metrics.map(m => ({
     chain: m.chain,
