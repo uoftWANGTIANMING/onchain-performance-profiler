@@ -54,13 +54,9 @@ app.get('/api/health', async (req, res) => {
 app.get('/api/metrics', cacheMiddleware, async (req, res) => {
   try {
     const startTime = Date.now();
-    let metrics = await processor.processAllChains();
     
-    const validMetrics = metrics.filter(m => m.tps > 0 || m.blockTime > 0);
-    
-    if (validMetrics.length === 0) {
-      const chains = Object.keys(CHAINS);
-      const realtimeMetrics = await Promise.all(
+    const chains = Object.keys(CHAINS);
+    const realtimeMetrics = await Promise.all(
         chains.map(async (chain) => {
           try {
             const chainCollector = collector.collectors.get(chain);
@@ -201,10 +197,8 @@ app.get('/api/metrics', cacheMiddleware, async (req, res) => {
           };
         })
       );
-      
-      metrics = realtimeMetrics;
-    }
     
+    const metrics = realtimeMetrics;
     const responseTime = Date.now() - startTime;
 
     res.json({
