@@ -4,7 +4,7 @@ import { BlockData } from '../types/metrics.js';
 import { withRetry, withTimeout } from './utils.js';
 
 export class SolanaCollector {
-  private connection: Connection;
+  public connection: Connection;
   private timeoutMs: number;
   private maxRetries: number;
 

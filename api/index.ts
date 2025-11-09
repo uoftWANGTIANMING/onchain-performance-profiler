@@ -63,10 +63,9 @@ app.get('/api/metrics', cacheMiddleware, async (req, res) => {
       const realtimeMetrics = await Promise.all(
         chains.map(async (chain) => {
           try {
-            const blockData = await collector.collect(chain);
             const chainCollector = collector.collectors.get(chain);
-            
-            if (!chainCollector || !chainCollector.getBlockByNumber) {
+            if (!chainCollector) {
+              console.error(`Collector not found for ${chain}`);
               return {
                 chain,
                 timestamp: Date.now(),
@@ -76,55 +75,83 @@ app.get('/api/metrics', cacheMiddleware, async (req, res) => {
               };
             }
             
-            const blocks: any[] = [blockData];
+            const blocks: any[] = [];
             
-            if (chain === 'solana' && chainCollector.getRecentSlots) {
+            if (chain === 'solana') {
               try {
-                const slots = await chainCollector.getRecentSlots(5);
-                const slotPromises = slots.slice(1, 4).map(slot => 
-                  chainCollector.getBlockByNumber(slot).catch(() => null)
+                const solanaCollector = chainCollector as any;
+                const currentSlot = await solanaCollector.connection.getSlot();
+                const slotsToFetch = [currentSlot, currentSlot - 1, currentSlot - 2, currentSlot - 3];
+                
+                const slotPromises = slotsToFetch.map(slot => 
+                  solanaCollector.getBlockByNumber(slot).catch((err: any) => {
+                    console.error(`Solana slot ${slot} failed:`, err.message);
+                    return null;
+                  })
                 );
+                
                 const slotResults = await Promise.all(slotPromises);
-                for (const result of slotResults.reverse()) {
+                for (const result of slotResults) {
+                  if (result && result.transactionCount !== undefined) {
+                    blocks.push(result);
+                  }
+                }
+                
+                if (blocks.length < 2) {
+                  console.error(`Solana: Only got ${blocks.length} blocks, need at least 2`);
+                }
+              } catch (error: any) {
+                console.error(`Solana collection error:`, error.message || error);
+              }
+            } else {
+              const blockData = await collector.collect(chain);
+              blocks.push(blockData);
+              
+              if (chainCollector.getBlockByNumber) {
+                const blockCounts: Record<string, number> = {
+                  ethereum: 3,
+                  arbitrum: 5,
+                  base: 3
+                };
+                const count = blockCounts[chain] || 3;
+                let currentBlock = blockData.blockNumber;
+                
+                const promises: Promise<any>[] = [];
+                for (let i = 1; i <= count && i <= 3; i++) {
+                  const targetBlock = currentBlock - i;
+                  if (targetBlock >= 0) {
+                    promises.push(
+                      chainCollector.getBlockByNumber(targetBlock).catch(() => null)
+                    );
+                  }
+                }
+                
+                const results = await Promise.all(promises);
+                for (const result of results.reverse()) {
                   if (result) blocks.unshift(result);
                 }
-              } catch {}
-            } else {
-              const blockCounts: Record<string, number> = {
-                ethereum: 3,
-                arbitrum: 5,
-                base: 3
-              };
-              const count = blockCounts[chain] || 3;
-              let currentBlock = blockData.blockNumber;
-              
-              const promises: Promise<any>[] = [];
-              for (let i = 1; i <= count && i <= 3; i++) {
-                const targetBlock = currentBlock - i;
-                if (targetBlock >= 0) {
-                  promises.push(
-                    chainCollector.getBlockByNumber(targetBlock).catch(() => null)
-                  );
-                }
-              }
-              
-              const results = await Promise.all(promises);
-              for (const result of results.reverse()) {
-                if (result) blocks.unshift(result);
               }
             }
             
             if (blocks.length >= 2) {
-              return {
+              const result = {
                 chain,
                 timestamp: Date.now(),
                 tps: processor.calculateTPS(blocks),
                 blockTime: processor.calculateBlockTime(blocks),
                 confirmationDelay: processor.calculateConfirmationDelay(blocks)
               };
+              
+              if (chain === 'solana') {
+                console.log(`Solana metrics: TPS=${result.tps}, BlockTime=${result.blockTime}, Blocks=${blocks.length}`);
+              }
+              
+              return result;
+            } else {
+              console.error(`${chain}: Only got ${blocks.length} blocks, need at least 2`);
             }
-          } catch (error) {
-            console.error(`Error collecting ${chain}:`, error);
+          } catch (error: any) {
+            console.error(`Error collecting ${chain}:`, error.message || error);
           }
           
           return {
