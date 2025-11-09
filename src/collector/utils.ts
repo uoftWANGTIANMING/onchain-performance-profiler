@@ -21,7 +21,7 @@ export async function withRetry<T>(
 
 export async function withTimeout<T>(
   promise: Promise<T>,
-  timeoutMs: number = 10000
+  timeoutMs: number = 15000
 ): Promise<T> {
   return Promise.race([
     promise,

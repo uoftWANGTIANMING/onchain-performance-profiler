@@ -80,56 +80,81 @@ app.get('/api/metrics', cacheMiddleware, async (req, res) => {
             if (chain === 'solana') {
               try {
                 const solanaCollector = chainCollector as any;
-                const currentSlot = await solanaCollector.connection.getSlot();
+                const currentSlot = await solanaCollector.connection.getSlot().catch((err: any) => {
+                  console.error(`Solana getSlot failed:`, err.message);
+                  throw err;
+                });
                 const slotsToFetch = [currentSlot, currentSlot - 1, currentSlot - 2, currentSlot - 3];
                 
                 const slotPromises = slotsToFetch.map(slot => 
                   solanaCollector.getBlockByNumber(slot).catch((err: any) => {
-                    console.error(`Solana slot ${slot} failed:`, err.message);
+                    console.error(`Solana slot ${slot} failed:`, err.message || err);
                     return null;
                   })
                 );
                 
                 const slotResults = await Promise.all(slotPromises);
+                let successCount = 0;
                 for (const result of slotResults) {
                   if (result && result.transactionCount !== undefined) {
                     blocks.push(result);
+                    successCount++;
                   }
                 }
                 
                 if (blocks.length < 2) {
-                  console.error(`Solana: Only got ${blocks.length} blocks, need at least 2`);
+                  console.error(`Solana: Only got ${blocks.length}/${slotsToFetch.length} blocks. Current slot: ${currentSlot}`);
+                } else {
+                  console.log(`Solana: Successfully fetched ${successCount}/${slotsToFetch.length} blocks`);
                 }
               } catch (error: any) {
-                console.error(`Solana collection error:`, error.message || error);
+                console.error(`Solana collection error:`, error.message || error, error.stack);
               }
             } else {
-              const blockData = await collector.collect(chain);
-              blocks.push(blockData);
-              
-              if (chainCollector.getBlockByNumber) {
-                const blockCounts: Record<string, number> = {
-                  ethereum: 3,
-                  arbitrum: 5,
-                  base: 3
-                };
-                const count = blockCounts[chain] || 3;
-                let currentBlock = blockData.blockNumber;
+              try {
+                const blockData = await collector.collect(chain);
+                blocks.push(blockData);
                 
-                const promises: Promise<any>[] = [];
-                for (let i = 1; i <= count && i <= 3; i++) {
-                  const targetBlock = currentBlock - i;
-                  if (targetBlock >= 0) {
-                    promises.push(
-                      chainCollector.getBlockByNumber(targetBlock).catch(() => null)
-                    );
+                if (chainCollector.getBlockByNumber) {
+                  const blockCounts: Record<string, number> = {
+                    ethereum: 3,
+                    arbitrum: 5,
+                    base: 3
+                  };
+                  const count = blockCounts[chain] || 3;
+                  let currentBlock = blockData.blockNumber;
+                  
+                  const promises: Promise<any>[] = [];
+                  for (let i = 1; i <= count && i <= 3; i++) {
+                    const targetBlock = currentBlock - i;
+                    if (targetBlock >= 0) {
+                      promises.push(
+                        chainCollector.getBlockByNumber(targetBlock).catch((err: any) => {
+                          console.error(`${chain} block ${targetBlock} failed:`, err.message || err);
+                          return null;
+                        })
+                      );
+                    }
+                  }
+                  
+                  const results = await Promise.all(promises);
+                  let successCount = 1;
+                  for (const result of results.reverse()) {
+                    if (result) {
+                      blocks.unshift(result);
+                      successCount++;
+                    }
+                  }
+                  
+                  if (blocks.length < 2) {
+                    console.error(`${chain}: Only got ${blocks.length} blocks (expected at least 2). Latest block: ${currentBlock}`);
+                  } else {
+                    console.log(`${chain}: Successfully fetched ${successCount} blocks`);
                   }
                 }
-                
-                const results = await Promise.all(promises);
-                for (const result of results.reverse()) {
-                  if (result) blocks.unshift(result);
-                }
+              } catch (error: any) {
+                console.error(`${chain} collection error:`, error.message || error, error.stack);
+                throw error;
               }
             }
             

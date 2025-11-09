@@ -8,7 +8,7 @@ export class EVMCollector {
   private timeoutMs: number;
   private maxRetries: number;
 
-  constructor(config: ChainConfig, timeoutMs: number = 10000, maxRetries: number = 3) {
+  constructor(config: ChainConfig, timeoutMs: number = 15000, maxRetries: number = 3) {
     this.provider = new ethers.JsonRpcProvider(config.rpcUrl);
     this.timeoutMs = timeoutMs;
     this.maxRetries = maxRetries;
