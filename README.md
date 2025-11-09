@@ -68,7 +68,12 @@ src/
 
 ## Deploy to Vercel
 
-1. Merge collector and api into serverless functions
-2. Build frontend with Vite and deploy to Vercel
-3. Use Supabase or Vercel KV for data storage
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions.
+
+Quick steps:
+1. Set environment variables in Vercel dashboard
+2. Deploy via `vercel` CLI or GitHub integration
+3. API routes are automatically configured as serverless functions
+
+**Note**: For production, consider using Supabase or Vercel KV for persistent data storage instead of local filesystem.
 
