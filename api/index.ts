@@ -71,24 +71,28 @@ app.get('/api/metrics', cacheMiddleware, async (req, res) => {
             
             const blocks: any[] = [blockData];
             const blockCounts: Record<string, number> = {
-              ethereum: 20,
-              arbitrum: 50,
-              base: 20,
-              solana: 20
+              ethereum: 10,
+              arbitrum: 20,
+              base: 10,
+              solana: 10
             };
-            const count = blockCounts[chain] || 20;
+            const count = blockCounts[chain] || 10;
             
             if (chainCollector.getBlockByNumber) {
               let currentBlock = blockData.blockNumber;
-              for (let i = 1; i < count; i++) {
-                try {
-                  currentBlock = currentBlock - 1;
-                  if (currentBlock < 0) break;
-                  const historicalBlock = await chainCollector.getBlockByNumber(currentBlock);
-                  blocks.unshift(historicalBlock);
-                } catch {
-                  break;
-                }
+              const promises: Promise<any>[] = [];
+              
+              for (let i = 1; i < count && i <= 5; i++) {
+                currentBlock = currentBlock - 1;
+                if (currentBlock < 0) break;
+                promises.push(
+                  chainCollector.getBlockByNumber(currentBlock).catch(() => null)
+                );
+              }
+              
+              const results = await Promise.all(promises);
+              for (const result of results.reverse()) {
+                if (result) blocks.unshift(result);
               }
             }
             
