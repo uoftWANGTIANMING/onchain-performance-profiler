@@ -56,7 +56,9 @@ app.get('/api/metrics', cacheMiddleware, async (req, res) => {
     const startTime = Date.now();
     let metrics = await processor.processAllChains();
     
-    const hasData = metrics.some(m => m.tps > 0 || m.blockTime > 0);
+    const validMetrics = metrics.filter(m => m.tps > 0 || m.blockTime > 0);
+    const hasData = validMetrics.length > 0;
+    
     if (!hasData) {
       const chains = Object.keys(CHAINS);
       const realtimeMetrics = await Promise.all(
@@ -115,17 +117,27 @@ app.get('/api/metrics', cacheMiddleware, async (req, res) => {
             }
             
             if (blocks.length >= 2) {
-              return {
+              const calculated = {
                 chain,
                 timestamp: Date.now(),
                 tps: processor.calculateTPS(blocks),
                 blockTime: processor.calculateBlockTime(blocks),
                 confirmationDelay: processor.calculateConfirmationDelay(blocks)
               };
+              
+              if (calculated.tps > 0 || calculated.blockTime > 0) {
+                return calculated;
+              }
             }
           } catch (error) {
             console.error(`Error collecting ${chain}:`, error);
           }
+          
+          const existingMetric = metrics.find(m => m.chain === chain);
+          if (existingMetric && (existingMetric.tps > 0 || existingMetric.blockTime > 0)) {
+            return existingMetric;
+          }
+          
           return {
             chain,
             timestamp: Date.now(),
@@ -135,7 +147,16 @@ app.get('/api/metrics', cacheMiddleware, async (req, res) => {
           };
         })
       );
-      metrics = realtimeMetrics;
+      
+      const finalMetrics = realtimeMetrics.map(newMetric => {
+        const existing = metrics.find(m => m.chain === newMetric.chain);
+        if (newMetric.tps === 0 && newMetric.blockTime === 0 && existing && (existing.tps > 0 || existing.blockTime > 0)) {
+          return existing;
+        }
+        return newMetric;
+      });
+      
+      metrics = finalMetrics;
     }
     
     const responseTime = Date.now() - startTime;

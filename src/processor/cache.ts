@@ -9,7 +9,7 @@ export class MetricsCache {
   private cache: Map<string, CacheEntry> = new Map();
   private ttl: number;
 
-  constructor(ttlMs: number = 5000) {
+  constructor(ttlMs: number = 60000) {
     this.ttl = ttlMs;
   }
 
