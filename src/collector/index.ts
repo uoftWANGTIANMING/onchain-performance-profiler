@@ -2,15 +2,18 @@ import { CHAINS, ChainConfig } from '../config/chains.js';
 import { EVMCollector } from './evm.js';
 import { SolanaCollector } from './solana.js';
 import { BlockData } from '../types/metrics.js';
+import { RateLimiter } from './utils.js';
 import fs from 'fs/promises';
 import path from 'path';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
 
-class Collector {
+export class Collector {
   private collectors: Map<string, EVMCollector | SolanaCollector> = new Map();
+  private rateLimiter: RateLimiter;
 
   constructor() {
+    this.rateLimiter = new RateLimiter(10, 1000);
     for (const [key, config] of Object.entries(CHAINS)) {
       if (config.type === 'evm') {
         this.collectors.set(key, new EVMCollector(config));
@@ -21,6 +24,8 @@ class Collector {
   }
 
   async collect(chain: string): Promise<BlockData> {
+    await this.rateLimiter.wait();
+    
     const collector = this.collectors.get(chain);
     if (!collector) {
       throw new Error(`Unknown chain: ${chain}`);
@@ -67,6 +72,23 @@ class Collector {
     await Promise.all(promises);
   }
 
+  async healthCheck(): Promise<Record<string, boolean>> {
+    const results: Record<string, boolean> = {};
+    const chains = Object.keys(CHAINS);
+    
+    const promises = chains.map(async (chain) => {
+      const collector = this.collectors.get(chain);
+      if (collector && 'healthCheck' in collector) {
+        results[chain] = await collector.healthCheck();
+      } else {
+        results[chain] = false;
+      }
+    });
+
+    await Promise.all(promises);
+    return results;
+  }
+
   start(intervalMs: number = 10000): void {
     this.collectAll();
     setInterval(() => {
@@ -75,6 +97,6 @@ class Collector {
   }
 }
 
-const collector = new Collector();
+export const collector = new Collector();
 collector.start(10000);
 
